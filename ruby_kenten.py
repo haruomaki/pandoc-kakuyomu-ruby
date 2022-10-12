@@ -8,8 +8,11 @@ def ruby_kenten(key, val, fmt, meta):
     ruby_pattern = r'(?:(?:[\|｜](?:\p{Hiragana}|\p{Katakana}|\p{Han}|ー|\p{P}|█)+?)|(?:\p{Han}+?))《(?!.*《).*?》'
     kenten_pattern = r'《《(?:\p{Hiragana}|\p{Katakana}|\p{Han}|\p{P}|ー)+?》》'
     if key == 'Header':
-        val[1][0] = val[2][0]['c']
-        return Header(val[0], val[1], val[2])
+        if val[2] != []:  # 見出しが空でないとき
+            val[1][0] = val[2][0]['c']
+            return Header(val[0], val[1], val[2])
+        else:
+            return
     if key != 'Str':
         return
     filtered_val = val
